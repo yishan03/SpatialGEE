@@ -67,7 +67,8 @@ run_gee_gst <- function(data, compare_levels, k = 100, family = poisson, corstr 
   kmeans_result <- kmeans(data[, c("x", "y")], centers = k)
   data$Clusters <- kmeans_result$cluster
   data <- data %>%
-    relocate(Clusters, .after = Pathology.Annotations) %>%
+    relocate(Clusters, .after = Pathology.Annotations)
+  data <- data %>%
     group_by(Clusters) %>%
     filter(n() > 1) %>%  # Remove clusters with only 1 observation
     ungroup() %>%

@@ -85,13 +85,8 @@ run_wilcoxon <- function(data, compare_levels, cores = 1) {
         stop("One or both groups have no data. Ensure valid compare_levels and data.")
       }
 
-      # Check for ties
-      if (length(unique(c(group1, group2))) < (length(group1) + length(group2))) {
-        warning("Ties detected for gene: ", colname)
-      }
-
       # Perform Wilcoxon test
-      suppressWarnings(p_value <- wilcox.test(group1, group2)$p.value)
+      p_value <- wilcox.test(group1, group2)$p.value
       return(data.frame(gene = colname, p_value = p_value))
     }, error = function(e) {
       error_log[[length(error_log) + 1]] <<- list(gene = colname, message = e$message)
