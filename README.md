@@ -6,8 +6,7 @@ R package for spatial data analysis using generalized estimating equations (GEE)
 
 ## Reference
 
-Yishan Wang and Peng Wei. **SpatialGEE: A generalized estimating equations framework for spatial data analysis.**  
-(*Details of publication pending*).
+
 
 ---
 
