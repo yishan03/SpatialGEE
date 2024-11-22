@@ -1,0 +1,122 @@
+---
+title: "SpatialGEE-Tutorial"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SpatialGEE-Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# 1. Introduction
+
+This tutorial introduces the **SpatialGEE** package for analyzing spatial transcriptomics data. It includes:
+
+- An example dataset for testing.
+
+- Descriptions and usage of core functions for visualization and statistical analysis.
+
+# 2. Installation and Loading
+
+To use the **SpatialGEE** package, install it and load it into your R session:
+
+```{r warning=FALSE, message=FALSE}
+if(!requireNamespace("devtools", quietly = TRUE))
+    install.packages("devtools")
+devtools::install_github("yishan03/SpatialGEE")
+library(SpatialGEE)
+```
+
+# 3. Example Dataset
+
+The package includes an example dataset, `example_data`, based on breast cancer spatial transcriptomics data.
+
+## 3.1. Dataset Description
+
+- The dataset contains metadata and gene expression data for 3168 spots.
+
+- Metadata columns include:
+  - `Barcodes`: Spot barcodes.
+  - `x`, `y`: Spatial coordinates.
+  - `Pathology.Annotations`: Pathology labels (`"Fibrous Tissue"` and `"Invasive Carcinoma"`).
+  
+- Gene expression data includes counts for three genes: `IGHG3`, `IGKC`, and `IGLC2`.
+
+## 3.2. Dataset Example
+
+```{r example-data, warning=FALSE, message=FALSE}
+data(example_data)
+head(example_data)
+```
+
+# 4. Visualizing Spatial Clusters
+
+The `plot_spatial_clusters` function visualizes spatial transcriptomics data by coloring spots based on k-means clustering.
+
+```{r spatial-clusters, warning=FALSE, message=FALSE, fig.width=5, fig.height=5, fig.align='center'}
+plot <- plot_spatial_clusters(example_data, k = 100)
+print(plot)
+```
+
+# 5. Statistical Analysis with SpatialGEE
+
+## 5.1. Robust Wald Test
+
+The `run_gee_wald` function uses Generalized Estimating Equations (GEE) with the robust Wald test to compare gene expression between two pathology levels.
+
+```{r gee-wald, warning=FALSE, message=FALSE}
+results_wald <- run_gee_wald(
+  data = example_data,
+  compare_levels = c("Fibrous Tissue", "Invasive Carcinoma"),
+  k = 100
+)
+
+results_wald
+```
+
+## 5.2. Generalized Score Test (GST)
+
+The `run_gee_gst` function performs GEE analysis using the Generalized Score Test (GST) for robust hypothesis testing.
+
+```{r gee-gst, warning=FALSE, message=FALSE}
+results_gst <- run_gee_gst(
+  data = example_data,
+  compare_levels = c("Fibrous Tissue", "Invasive Carcinoma"),
+  k = 100
+)
+
+results_gst
+```
+
+## 5.3. Independent GEE Analysis
+
+The `run_indep_gee` function treats each spatial location as independent for GEE analysis.
+
+```{r indep-gee, warning=FALSE, message=FALSE}
+results_indep <- run_indep_gee(
+  data = example_data,
+  compare_levels = c("Fibrous Tissue", "Invasive Carcinoma")
+)
+
+results_indep
+```
+
+## 5.4. Wilcoxon Rank-Sum Test
+
+The `run_wilcoxon` function performs the Wilcoxon rank-sum test to compare gene expression levels between two pathology groups.
+
+```{r wilcoxon-test, warning=FALSE, message=FALSE}
+results_wilcoxon <- run_wilcoxon(
+  data = example_data,
+  compare_levels = c("Fibrous Tissue", "Invasive Carcinoma")
+)
+
+results_wilcoxon
+```
+
