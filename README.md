@@ -1,6 +1,6 @@
 # SpatialGEE
 
-R package for spatial data analysis using generalized estimating equations (GEE). This package enables robust statistical analysis of spatially correlated data and provides tools for hypothesis testing using Wald and generalized score tests.
+R package for spatial data analysis using generalized estimating equations (GEEs). This package enables robust statistical analysis of spatially correlated data and provides tools for hypothesis testing using Wald and generalized score tests.
 
 ---
 
