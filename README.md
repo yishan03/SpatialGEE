@@ -6,7 +6,7 @@ R package for spatial data analysis using generalized estimating equations (GEE)
 
 ## Reference
 
-
+Wang, Y., Zang, C., Li, Z., Guo, C. C., Lai, D., & Wei, P. (2024). A comparative study of statistical methods for identifying differentially expressed genes in spatial transcriptomics. Unpublished manuscript.
 
 ---
 
@@ -42,20 +42,8 @@ Here’s an example of how to use the package with sample data:
 ```r
 library("SpatialGEE")
 
-# Load example data
 data(example_data)
 
-# Perform a Wald test using the GEE framework
-results <- run_gee_wald(data = example_data, compare_levels = c("Fibrous Tissue", "Invasive Carcinoma"))
+results <- gee_gst_test(data = example_data, compare_levels = c("Fibrous Tissue", "Invasive Carcinoma"))
 print(results)
-```
-
----
-
-### Feedback and Questions
-
-If you have any questions or encounter any issues while using the package, please feel free to open an issue in this repository.
-
----
-
 ```
