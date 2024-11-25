@@ -1,6 +1,6 @@
 ---
 title: "SpatialGEE-Tutorial"
-output: rmarkdown::html_vignette
+output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{SpatialGEE-Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
@@ -29,7 +29,7 @@ To use the **SpatialGEE** package, install it and load it into your R session:
 ```{r warning=FALSE, message=FALSE}
 if(!requireNamespace("devtools", quietly = TRUE))
     install.packages("devtools")
-devtools::install_github("yishan03/SpatialGEE")
+devtools::install_github("yishan03/SpatialGEE", quiet = TRUE)
 library(SpatialGEE)
 ```
 
