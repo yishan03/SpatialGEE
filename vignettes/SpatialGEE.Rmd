@@ -4,7 +4,6 @@ output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SpatialGEE Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignettePDF{SpatialGEE.pdf}
   %\VignetteEncoding{UTF-8}
 ---
 
