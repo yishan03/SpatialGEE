@@ -9,9 +9,9 @@
 #'   \item{x}{x-coordinates of spatial locations (numeric).}
 #'   \item{y}{y-coordinates of spatial locations (numeric).}
 #'   \item{Pathology.Annotations}{Pathology labels (factor with levels "Fibrous Tissue" and "Invasive Carcinoma").}
-#'   \item{IGHG3}{Expression counts for IGHG3 (integer).}
-#'   \item{IGKC}{Expression counts for IGKC (integer).}
-#'   \item{IGLC2}{Expression counts for IGLC2 (integer).}
+#'   \item{IGHG2}{Expression counts for IGHG2 (integer).}
+#'   \item{MALAT1}{Expression counts for MALAT1 (integer).}
+#'   \item{MYH11}{Expression counts for MYH11 (integer).}
 #' }
 #' @usage data(example_data)
 #' @examples
