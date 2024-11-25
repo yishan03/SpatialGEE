@@ -1,9 +1,10 @@
 ---
 title: "SpatialGEE-Tutorial"
-output: rmarkdown::pdf_document
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SpatialGEE-Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
+  %\VignettePDF{SpatialGEE-Tutorial.pdf}
   %\VignetteEncoding{UTF-8}
 ---
 
