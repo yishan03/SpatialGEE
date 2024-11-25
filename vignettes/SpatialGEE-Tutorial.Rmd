@@ -46,7 +46,7 @@ The package includes an example dataset, `example_data`, based on breast cancer 
   - `x`, `y`: Spatial coordinates.
   - `Pathology.Annotations`: Pathology labels (`"Fibrous Tissue"` and `"Invasive Carcinoma"`).
   
-- Gene expression data includes counts for three genes: `IGHG3`, `IGKC`, and `IGLC2`.
+- Gene expression data includes counts for three genes: `IGHG2`, `MALAT1`, and `MYH11`.
 
 ## 3.2. Dataset Example
 
