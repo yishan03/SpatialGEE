@@ -20,7 +20,7 @@ for (pkg in required_packages) {
 
 if(!requireNamespace("devtools", quietly = TRUE))
     install.packages("devtools")
-devtools::install_github("yishan03/SpatialGEE", build_vignettes = TRUE)
+devtools::install_github("yishan03/SpatialGEE")
 ```
 
 ## To Get Started with the Package
