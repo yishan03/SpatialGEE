@@ -43,6 +43,6 @@ library("SpatialGEE")
 
 data(example_data)
 
-results <- gee_gst_test(data = example_data, compare_levels = c("Fibrous Tissue", "Invasive Carcinoma"))
+results <- run_gee_gst(data = example_data, compare_levels = c("Fibrous Tissue", "Invasive Carcinoma"))
 print(results)
 ```
