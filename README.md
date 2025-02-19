@@ -32,10 +32,10 @@ devtools::install_github("yishan03/SpatialGEE")
    ```r
    library("SpatialGEE")
    vignette("SpatialGEE")
-   vignette("SpatialGEE Tutorial for Spatial Coprofiling Integration")
+   vignette("SpatialGEEIntegration")
    ```
 
-2. The vignette provides detailed examples for all the functions included in the `SpatialGEE` package. If you have any question, use help().
+2. The vignette provides detailed examples for all the functions and pipeline included in the `SpatialGEE` package. If you have any question, use help().
 
 ## Example Workflow
 
