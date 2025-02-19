@@ -1,0 +1,117 @@
+---
+title: "SpatialGEE Integration Tutorial"
+output: pdf_document
+vignette: >
+  %\VignetteIndexEntry{SpatialGEE Integration Tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r include = FALSE}
+library(dplyr)
+```
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# 1. Introduction
+
+This tutorial demonstrates how to use **SpatialGEE** for spatial co-profiling integration of ATAC and RNA data. We will:
+
+- Perform differential expression analysis using `run_gee_gst()` and `run_wilcoxon()`.
+
+- Merge p-values from ATAC & RNA.
+
+- Use IMIX for integrative analysis.
+
+# 2. Installation and Loading
+
+To use the **SpatialGEE** package, install it and load it into R session:
+
+```{r warning=FALSE, message=FALSE}
+if(!requireNamespace("devtools", quietly = TRUE))
+    install.packages("devtools")
+devtools::install_github("yishan03/SpatialGEE", quiet = TRUE)
+library(SpatialGEE)
+```
+
+# 3. Example Dataset
+
+The package includes an example dataset, `coprofile_example_data`, based on a subset of the processed spatial epigenome-transcriptome mouse brain co-profiling data (Zhang et al., 2023).
+
+## 3.1. Dataset Description
+
+- The dataset contains spatial co-profiling data (ATAC & RNA), including metadata and gene-level measurements across 9,215 cells.
+
+- Metadata columns include:
+  - `Barcodes`: Cell barcodes.
+  - `x`, `y`: Spatial coordinates.
+  - `Pathology.Annotations`: Pathology labels (`"non-Corpus callosum"` and `"Corpus callosum"`).
+  
+- Gene expression and accessibility data include 100 selected genes: `Gabbr2`, `Pde7b`, ..., `Itga8`.
+
+## 3.2. Dataset Example
+
+```{r}
+data(coprofile_example_data)
+atac <- coprofile_example_data$ATAC
+rna <- coprofile_example_data$RNA
+```
+
+```{r}
+head(coprofile_example_data$ATAC) %>%
+  dplyr::select(1:7)
+```
+
+```{r}
+head(coprofile_example_data$RNA) %>%
+  dplyr::select(1:7)
+```
+
+# 4. Differential Expression Analysis 
+
+## 4.1. Continious data type 
+
+We use `run_wilcoxon()` to contentious data types, such as normalized ATAC.
+
+```{r warning=FALSE}
+atac_DE_res <- run_wilcoxon(
+  atac, 
+  compare_levels = c("non-Corpus callosum", "Corpus callosum"))
+head(atac_DE_res)
+```
+
+We use `run_gee_gst()` to count data types, such as RNA counts. 
+
+```{r warning=FALSE}
+rna_DE_res <- run_gee_gst(
+  rna, 
+  compare_levels = c("non-Corpus callosum", "Corpus callosum"))
+head(rna_DE_res)
+```
+
+# 5. Merge ATAC & RNA p-values
+
+We combine the results from ATAC and RNA.
+
+```{r}
+merged_pvalue <- merge(atac_DE_res, rna_DE_res, by = "gene") %>%
+  rename_with(~ c("atac_pvalue", "rna_pvalue"), starts_with("p_value")) %>%
+  tibble::column_to_rownames("gene") %>%
+  na.omit()
+head(merged_pvalue)
+```
+
+# 6. Run IMIX for ATAC-RNA Integration
+
+Run IMIX for integration and retrieve significant genes with FDR control.
+
+```{r}
+integration_res <- IMIX::IMIX(data_input = merged_pvalue)
+head(integration_res$significant_genes_with_FDRcontrol)
+```
+
