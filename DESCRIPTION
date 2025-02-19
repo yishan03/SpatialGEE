@@ -21,3 +21,5 @@ Config/testthat/edition: 3
 URL: https://github.com/yishan03/SpatialGEE
 BugReports: https://github.com/yishan03/SpatialGEE/issues
 VignetteBuilder: knitr
+Imports: 
+    IMIX
