@@ -39,9 +39,7 @@ devtools::install_github("yishan03/SpatialGEE")
 
 ## Example Workflow
 
-1. Differential expression analysis for a single spatial data type (Wang et al., 2025)
-
-This example demonstrates how to apply the generalized score test (GST) to identify differentially expressed genes in spatial transcriptomics data.
+1. Differential expression analysis for a single spatial data type (Wang et al., 2025):
 
    ```r
    library("SpatialGEE")
@@ -51,13 +49,10 @@ This example demonstrates how to apply the generalized score test (GST) to ident
    results_gst <- run_gee_gst(
      data = example_data, 
      compare_levels = c("Fibrous Tissue", "Invasive Carcinoma"))
-
    print(results_gst)
    ```
 
-2. Integration of Multiple Spatial Data Types (Wang and Wei, 2025)
-
-This example demonstrates how to integrate spatial transcriptomics and epigenomics data.
+2. Integration of multiple spatial data types (Wang and Wei, 2025):
 
    ```r
    library("SpatialGEE")
