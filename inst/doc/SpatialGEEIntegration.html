@@ -347,8 +347,7 @@ spatial co-profiling integration of ATAC and RNA data. We will:</p>
 <ul>
 <li><p>Perform differential expression analysis using
 <code>run_gee_gst()</code> and <code>run_wilcoxon()</code>.</p></li>
-<li><p>Merge p-values from ATAC &amp; RNA.</p></li>
-<li><p>Use IMIX for integrative analysis.</p></li>
+<li><p>Use IMIX for integrative analysis based on P-values.</p></li>
 </ul>
 </div>
 <div id="installation-and-loading" class="section level1">
@@ -427,6 +426,9 @@ normalized ATAC.</p>
 <span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; 4   Snap25 8.054409e-202</span></span>
 <span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; 5    Il12a  1.722868e-01</span></span>
 <span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; 6 Cacna2d3  9.952009e-43</span></span></code></pre></div>
+</div>
+<div id="count-data-type" class="section level2">
+<h2>4.2. Count data type</h2>
 <p>We use <code>run_gee_gst()</code> to count data types, such as RNA
 counts.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>rna_DE_res <span class="ot">&lt;-</span> <span class="fu">run_gee_gst</span>(</span>
@@ -441,9 +443,8 @@ counts.</p>
 <span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; 5    Il12a 0.0004134127</span></span>
 <span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt; 6 Cacna2d3 0.0020262216</span></span></code></pre></div>
 </div>
-</div>
-<div id="merge-atac-rna-p-values" class="section level1">
-<h1>5. Merge ATAC &amp; RNA p-values</h1>
+<div id="combine-atac-rna-p-values" class="section level2">
+<h2>4.3. Combine ATAC &amp; RNA P-values</h2>
 <p>We combine the results from ATAC and RNA.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>merged_pvalue <span class="ot">&lt;-</span> <span class="fu">merge</span>(atac_DE_res, rna_DE_res, <span class="at">by =</span> <span class="st">&quot;gene&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="sc">~</span> <span class="fu">c</span>(<span class="st">&quot;atac_pvalue&quot;</span>, <span class="st">&quot;rna_pvalue&quot;</span>), <span class="fu">starts_with</span>(<span class="st">&quot;p_value&quot;</span>)) <span class="sc">%&gt;%</span></span>
@@ -458,9 +459,10 @@ counts.</p>
 <span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; Ank     3.119800e-24 5.372984e-01</span></span>
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; Apod    2.115761e-23 1.645404e-09</span></span></code></pre></div>
 </div>
+</div>
 <div id="run-imix-for-atac-rna-integration" class="section level1">
-<h1>6. Run IMIX for ATAC-RNA Integration</h1>
-<p>Run IMIX for integration and retrieve significant genes with FDR
+<h1>5. Run IMIX for ATAC-RNA Integration</h1>
+<p>We run IMIX for integration and retrieve significant genes with FDR
 control.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>integration_res <span class="ot">&lt;-</span> IMIX<span class="sc">::</span><span class="fu">IMIX</span>(<span class="at">data_input =</span> merged_pvalue)</span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&gt; Assign initial values</span></span>
@@ -489,6 +491,20 @@ control.</p>
 <span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="co">#&gt; Cdc5l         0                       4                4</span></span>
 <span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="co">#&gt; Cpne5         0                       4                4</span></span>
 <span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="co">#&gt; Dgkb          0                       4                4</span></span></code></pre></div>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p>Wang, Y., &amp; Wei, P. (2025). A Mixture Model Approach for
+Integrating Spatial Transcriptomics and Epigenomics. Unpublished
+manuscript.</p>
+<p>Wang, Z., &amp; Wei, P. (2020). IMIX: A multivariate mixture model
+approach to association analysis through multi-omics data integration.
+Bioinformatics, 36(22–23), 5439–5447.</p>
+<p>Zhang, D., Deng, Y., Kukanja, P., Agirre, E., Bartosovic, M., Dong,
+M., Ma, C., Ma, S., Su, G., Bao, S., Liu, Y., Xiao, Y., Rosoklija, G.
+B., Dwork, A. J., Mann, J. J., Leong, K. W., Boldrini, M., … Fan, R.
+(2023). Spatial epigenome–transcriptome co-profiling of mammalian
+tissues. Nature, 616(7955), 113–122.</p>
 </div>
 
 

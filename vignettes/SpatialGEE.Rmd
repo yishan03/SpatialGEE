@@ -1,6 +1,6 @@
 ---
 title: "SpatialGEE Tutorial"
-output: rmarkdown::html_vignette
+output: pdf_document
 vignette: >
   %\VignetteIndexEntry{SpatialGEE Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
@@ -120,3 +120,6 @@ results_wilcoxon <- run_wilcoxon(
 results_wilcoxon
 ```
 
+# Reference
+
+Wang, Y., Zang, C., Li, Z., Guo, C. C., Lai, D., & Wei, P. (2025). A comparative study of statistical methods for identifying differentially expressed genes in spatial transcriptomics. Unpublished manuscript.

@@ -1,6 +1,6 @@
 ---
 title: "SpatialGEE Integration Tutorial"
-output: pdf_document
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{SpatialGEE Integration Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
@@ -24,9 +24,7 @@ This tutorial demonstrates how to use **SpatialGEE** for spatial co-profiling in
 
 - Perform differential expression analysis using `run_gee_gst()` and `run_wilcoxon()`.
 
-- Merge p-values from ATAC & RNA.
-
-- Use IMIX for integrative analysis.
+- Use IMIX for integrative analysis based on P-values.
 
 # 2. Installation and Loading
 
@@ -85,6 +83,8 @@ atac_DE_res <- run_wilcoxon(
 head(atac_DE_res)
 ```
 
+## 4.2. Count data type 
+
 We use `run_gee_gst()` to count data types, such as RNA counts. 
 
 ```{r warning=FALSE}
@@ -94,7 +94,7 @@ rna_DE_res <- run_gee_gst(
 head(rna_DE_res)
 ```
 
-# 5. Merge ATAC & RNA p-values
+## 4.3. Combine ATAC & RNA P-values
 
 We combine the results from ATAC and RNA.
 
@@ -106,12 +106,19 @@ merged_pvalue <- merge(atac_DE_res, rna_DE_res, by = "gene") %>%
 head(merged_pvalue)
 ```
 
-# 6. Run IMIX for ATAC-RNA Integration
+# 5. Run IMIX for ATAC-RNA Integration
 
-Run IMIX for integration and retrieve significant genes with FDR control.
+We run IMIX for integration and retrieve significant genes with FDR control.
 
 ```{r}
 integration_res <- IMIX::IMIX(data_input = merged_pvalue)
 head(integration_res$significant_genes_with_FDRcontrol)
 ```
 
+# References
+
+Wang, Y., & Wei, P. (2025). A Mixture Model Approach for Integrating Spatial Transcriptomics and Epigenomics. Unpublished manuscript.
+
+Wang, Z., & Wei, P. (2020). IMIX: A multivariate mixture model approach to association analysis through multi-omics data integration. Bioinformatics, 36(22–23), 5439–5447.
+
+Zhang, D., Deng, Y., Kukanja, P., Agirre, E., Bartosovic, M., Dong, M., Ma, C., Ma, S., Su, G., Bao, S., Liu, Y., Xiao, Y., Rosoklija, G. B., Dwork, A. J., Mann, J. J., Leong, K. W., Boldrini, M., … Fan, R. (2023). Spatial epigenome–transcriptome co-profiling of mammalian tissues. Nature, 616(7955), 113–122.
